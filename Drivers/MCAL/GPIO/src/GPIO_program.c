@@ -13,7 +13,6 @@
  *
  */
 
-
 #include "stdint.h"
 #include "Utils.h"
 #include "STDTypes.h"
@@ -22,50 +21,93 @@
 #include "GPIO/inc/GPIO_config.h"
 #include "GPIO/inc/GPIO_interface.h"
 
+static GPIO_r *GPIO_ArraysOfPtr[Number_OfPorts] = { GPIOA, GPIOB, GPIOC };
 
+RETURN_t GPIO_RETURNtPinInit(GPIO_PinConfig *Localptr_PinConfig) {
 
-static GPIO_r* GPIO_ArraysOfPtr[Number_OfPorts] = {GPIOA , GPIOB, GPIOC} ;
+	RETURN_t LocalRetState = OK_ret;
+	if ((Localptr_PinConfig->Port_Name >= GPIO_PORTA
+			&& Localptr_PinConfig->Port_Name <= GPIO_PORTC)
+			|| (Localptr_PinConfig->PIN_Name >= GPIO_Pin0
+					&& Localptr_PinConfig->PIN_Name <= GPIO_Pin0)) {
 
-RETURN_t GPIO_RETURNtPinInit(GPIO_PinConfig* Localptr_PinConfig) {
-
-	RETURN_t  LocalRetState  =  OK_ret ;
-	if((Localptr_PinConfig->Port_Name>=GPIO_PORTA&&Localptr_PinConfig->Port_Name<=GPIO_PORTC ) ||
-			(Localptr_PinConfig->PIN_Name>=GPIO_Pin0&&Localptr_PinConfig->PIN_Name<=GPIO_Pin0 ) ){
-
-
-		GPIO_r* LocalGPIO_Ptr = GPIO_ArraysOfPtr[Localptr_PinConfig->Port_Name] ;
+		GPIO_r *LocalGPIO_Ptr = GPIO_ArraysOfPtr[Localptr_PinConfig->Port_Name];
 		/* configure mode */
-		MOD_NUM_OF_BITS(LocalGPIO_Ptr->CR[(Localptr_PinConfig->PIN_Name)/8] , ((Localptr_PinConfig->PIN_Name)%8)*4 , 4 , Localptr_PinConfig->PIN_MODE) ;
+		MOD_NUM_OF_BITS(LocalGPIO_Ptr->CR[(Localptr_PinConfig->PIN_Name) / 8],
+				((Localptr_PinConfig->PIN_Name) % 8) * 4, 4,
+				Localptr_PinConfig->PIN_MODE);
 		/* configure set and reset */
-		if(Localptr_PinConfig->PIN_Name==High_O){
+		if (Localptr_PinConfig->PIN_Name == High_O) {
 
-			SET_BIT(LocalGPIO_Ptr->BSRR , Localptr_PinConfig->PIN_Name) ;
+			SET_BIT(LocalGPIO_Ptr->BSRR , Localptr_PinConfig->PIN_Name);
 
-		}
-		else if (Localptr_PinConfig->PIN_Name==LOW_O){
+		} else if (Localptr_PinConfig->PIN_Name == LOW_O) {
 
-			SET_BIT(LocalGPIO_Ptr->BSRR , (Localptr_PinConfig->PIN_Name)+16 ) ;
+			SET_BIT(LocalGPIO_Ptr->BSRR , (Localptr_PinConfig->PIN_Name)+16 );
 
-		}
-		else {
-			LocalRetState =  ERROR_ret ;
+		} else {
+			LocalRetState = ERROR_ret;
 		}
 
-	}
-	else {
+	} else {
 
-		LocalRetState =  ERROR_ret ;
+		LocalRetState = ERROR_ret;
 	}
 
-	return LocalRetState  ;
-
+	return LocalRetState;
 
 }
 
-RETURN_t GPIO_RETURNtPinOut(uint8_t Local_Portval , uint8_t Local_Pinval  , uint8_t Local_OutVal);
+/**
+ * @brief  Sets the output value of a GPIO pin.
+ * @param  Local_PortName: The GPIO port to which the pin belongs.
+ * @param  Local_PinName: The specific pin in the port.
+ * @param  Local_OutVal: The output value to be set (High_O or LOW_O).
+ * @retval RETURN_t: Indicates the success or failure of the operation.
+ */
+RETURN_t GPIO_RETURNtPinOut(GPIO_Ports Local_PortName, GPIO_Pins Local_PinName,GPIO_PinStateOut Local_OutVal) {
 
-RETURN_t GPIO_RETURNtPinOut(uint8_t Local_Portval , uint8_t Local_Pinval  , uint8_t Local_OutVal);
+	RETURN_t local_RETURN_t = OK_ret;
+	if (Local_PortName >= GPIO_PortsOutOfRange|| Local_PinName >= GPIO_PinsOutOfRange) {
 
-uint8_t GPIO_u8PinRead(uint8_t Local_Portval ,  uint8_t Local_Pinval);
+		local_RETURN_t = ERROR_ret;
 
-RETURN_t GPIO_RETURNtPinOut(uint8_t Local_Portval ,  uint8_t Local_Pinval  , uint8_t FuncationVal);
+	} else {
+
+		if (Local_OutVal == High_O) {
+
+			SET_BIT(GPIO_ArraysOfPtr[Local_PortName]->BSRR ,Local_PinName) ;
+
+		}
+
+		else if (Local_OutVal == LOW_O) {
+
+			SET_BIT(GPIO_ArraysOfPtr[Local_PortName]->BSRR ,(Local_PinName+GPIO_PinsOutOfRange) ) ;
+
+		} else {
+
+			local_RETURN_t = ERROR_ret;
+
+		}
+
+	}
+
+	return local_RETURN_t;
+}
+
+/**
+ * @brief  Reads the current state of a GPIO pin.
+ * @param  Local_PortName: The GPIO port to which the pin belongs.
+ * @param  Local_PinName: The specific pin in the port.
+ * @retval GPIO_PinStateOut: The current state of the GPIO pin (High_O or LOW_O).
+ */
+GPIO_PinStateOut GPIO_u8PinRead(GPIO_Ports Local_PortName,GPIO_Pins Local_PinName);
+
+/**
+ * @brief  Toggles the output value of a GPIO pin based on a given function.
+ * @param  Local_PortName: The GPIO port to which the pin belongs.
+ * @param  Local_PinName: The specific pin in the port.
+ * @retval RETURN_t: Indicates the success or failure of the operation.
+ */
+RETURN_t GPIO_RETURNtPinToggle(GPIO_Ports Local_PortName,GPIO_Pins Local_PinName);
+

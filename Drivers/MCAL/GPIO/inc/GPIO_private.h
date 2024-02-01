@@ -36,8 +36,11 @@
 #define GPIO_PinModeInput_PD		0b1000
 
 
-#define High_O  0
-#define LOW_O   1
+
+typedef enum {
+	High_O,
+	LOW_O
+}GPIO_PinStateOut ;
 
 
 typedef enum {
@@ -119,8 +122,12 @@ typedef struct {
 	GPIO_Ports Port_Name   ;
 	GPIO_Pins  PIN_Name      ;
 	uint8_t    PIN_MODE       ; /* input / output  / alternate function*/
-	uint8_t    PIN_DefaultOut ; /*     High  / Low  */
-
+	GPIO_PinStateOut    PIN_DefaultOut ; /*     High  / Low  */
+	/*
+	 * pullup \ pulldown
+	 * speed
+	 *
+	 */
 }GPIO_PinConfig ;
 
 

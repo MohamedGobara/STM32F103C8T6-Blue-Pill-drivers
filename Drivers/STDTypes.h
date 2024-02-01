@@ -19,9 +19,6 @@
 #define STDTYPES_H_
 
 
-// Define NULL as a symbolic constant representing a null pointer
-#define NULL 0
-
 // Define a custom boolean enumeration with values FALSE and TRUE
 typedef enum {
     FALSE = 0, // FALSE is assigned 0

@@ -15,10 +15,9 @@
  *
  */
 
-#include <stdio.h>
-#include<stdlib.h>
-#include<string.h>
 #include <stdint.h>
+
+#include<string.h>
 
 #include "Utils.h"
 #include "STDTypes.h"
@@ -84,8 +83,11 @@ void GenerateInterrupt(void)
  *
  */
 
+
+
 int main()
 {
+
 
 
 	GPIO_PinConfig Pina2 = {
@@ -102,13 +104,17 @@ int main()
 
 	RCC_RETURNtPeripheralEn(APB2, PORTA_APB2_peripherals) ;
 
-
+/*
 	GPIO_RETURNtPinInit(&Pina2) ;
 
-	Pina2.PIN_DefaultOut = High_O ;
+	GPIO_RETURNtPinOut(GPIO_PORTA, GPIO_Pin2, High_O) ;
 
-	GPIO_RETURNtPinInit(&Pina2) ;
+	GPIO_RETURNtPinOut(GPIO_PORTA, GPIO_Pin2, LOW_O) ;
 
+	GPIO_RETURNtPinOut(GPIO_PORTA, GPIO_Pin2, LOW_O) ;
+	GPIO_RETURNtPinOut(GPIO_PORTA, GPIO_Pin2, High_O) ;
+
+*/
 
 	return 0;
 }
