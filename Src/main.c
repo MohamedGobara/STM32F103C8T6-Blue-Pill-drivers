@@ -95,7 +95,7 @@ int main()
 			GPIO_PORTA ,
 			GPIO_Pin2 ,
 			GPIO_PinModeOutput_PP ,
-			LOW_O
+			High_O
 
 	} ;
 
@@ -104,17 +104,27 @@ int main()
 
 	RCC_RETURNtPeripheralEn(APB2, PORTA_APB2_peripherals) ;
 
-/*
+
 	GPIO_RETURNtPinInit(&Pina2) ;
 
 	GPIO_RETURNtPinOut(GPIO_PORTA, GPIO_Pin2, High_O) ;
 
 	GPIO_RETURNtPinOut(GPIO_PORTA, GPIO_Pin2, LOW_O) ;
 
-	GPIO_RETURNtPinOut(GPIO_PORTA, GPIO_Pin2, LOW_O) ;
-	GPIO_RETURNtPinOut(GPIO_PORTA, GPIO_Pin2, High_O) ;
+	if(GPIO_u8PinRead(GPIO_PORTA, GPIO_Pin2)==LOW_O){
 
-*/
+		GPIO_RETURNtPinOut(GPIO_PORTA, GPIO_Pin2, High_O) ;
+
+	}
+	GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2) ;
+
+	GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2) ;
+
+	GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2) ;
+
+	GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2) ;
+
+
 
 	return 0;
 }

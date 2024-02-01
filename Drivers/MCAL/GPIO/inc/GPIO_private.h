@@ -38,8 +38,8 @@
 
 
 typedef enum {
+	LOW_O ,
 	High_O,
-	LOW_O
 }GPIO_PinStateOut ;
 
 
