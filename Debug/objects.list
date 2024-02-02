@@ -1,3 +1,4 @@
+"./Drivers/HAL/LCD/src/LCD_program.o"
 "./Drivers/MCAL/GPIO/src/GPIO_program.o"
 "./Drivers/MCAL/RCC/src/RCC_program.o"
 "./Drivers/MCAL/SysTick/src/SysTick_program.o"

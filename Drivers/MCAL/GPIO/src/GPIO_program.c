@@ -13,13 +13,8 @@
  *
  */
 
-#include "stdint.h"
-#include "Utils.h"
-#include "STDTypes.h"
-
-#include "GPIO/inc/GPIO_private.h"
-#include "GPIO/inc/GPIO_config.h"
 #include "GPIO/inc/GPIO_interface.h"
+
 
 static GPIO_r *GPIO_ArraysOfPtr[Number_OfPorts] = { GPIOA, GPIOB, GPIOC };
 
