@@ -11,6 +11,7 @@ RM := rm -rf
 -include sources.mk
 -include Startup/subdir.mk
 -include Src/subdir.mk
+-include Drivers/MCAL/SysTick/src/subdir.mk
 -include Drivers/MCAL/RCC/src/subdir.mk
 -include Drivers/MCAL/GPIO/src/subdir.mk
 -include objects.mk

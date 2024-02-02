@@ -94,6 +94,11 @@ RETURN_t RCC_RETURNtInit(void) ;
   * @retval Return status indicating success or failure of the operation.
   */
 
+
+/*
+ *  RCC_
+ *
+ */
 RETURN_t RCC_RETURNtPeripheralEn(uint8_t BusType, uint8_t PeripheralName) ;
 
 
