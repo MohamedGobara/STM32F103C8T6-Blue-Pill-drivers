@@ -22,15 +22,17 @@
 #include "Utils.h"
 #include "STDTypes.h"
 
+#include "SysTick/inc/SysTick_private.h"
+#include "SysTick/inc/SysTick_config.h"
+#include "SysTick/inc/SysTick_interface.h"
+
 #include "RCC/inc/RCC_private.h"
 #include "RCC/inc/RCC_config.h"
 #include "RCC/inc/RCC_interface.h"
 
-
 #include "GPIO/inc/GPIO_private.h"
 #include "GPIO/inc/GPIO_config.h"
 #include "GPIO/inc/GPIO_interface.h"
-
 
 void SwitchAccessToUnPreleivage(void) {
 
@@ -42,34 +44,29 @@ void SwitchAccessToUnPreleivage(void) {
 	 */
 
 	/* Read control register */
-	__asm volatile ("MRS R0 , CONTROL") ;
+	__asm volatile ("MRS R0 , CONTROL");
 
 	/* modify to one  */
 
-	__asm volatile ("ORR R0 ,#0x01") ;
+	__asm volatile ("ORR R0 ,#0x01");
 
 	/* write new value into control */
 
-	__asm volatile ("MSR CONTROL , R0") ;
+	__asm volatile ("MSR CONTROL , R0");
 
 }
 
+void GenerateInterrupt(void) {
 
-
-void GenerateInterrupt(void)
-{
-
-	uint32_t* pSTIR= (uint32_t*)0xE000EF00;
-	uint32_t* pISER0= (uint32_t*)0xE000E100;
+	uint32_t *pSTIR = (uint32_t*) 0xE000EF00;
+	uint32_t *pISER0 = (uint32_t*) 0xE000E100;
 
 	//Enable IRQ3 Interrupt
-	*pISER0 |= 1<<3;
+	*pISER0 |= 1 << 3;
 
 	//Generate Software interrupt for IRQ3
-	*pSTIR = (3 &0x1FF);
+	*pSTIR = (3 & 0x1FF);
 }
-
-
 
 /*
  *
@@ -83,51 +80,56 @@ void GenerateInterrupt(void)
  *
  */
 
-
-
-int main()
-{
-
-
+int main() {
 
 	GPIO_PinConfig Pina2 = {
 
-			GPIO_PORTA ,
-			GPIO_Pin2 ,
-			GPIO_PinModeOutput_PP ,
-			High_O
+	GPIO_PORTA, GPIO_Pin2,
+	GPIO_PinModeOutput_PP, High_O
 
-	} ;
+	};
 
+	RCC_RETURNtInit();
 
-	RCC_RETURNtInit() ;
+	RCC_RETURNtPeripheralEn(APB2, PORTA_APB2_peripherals);
 
-	RCC_RETURNtPeripheralEn(APB2, PORTA_APB2_peripherals) ;
+	GPIO_RETURNtPinInit(&Pina2);
 
+	SysTick_vInit();
 
-	GPIO_RETURNtPinInit(&Pina2) ;
+	while (1) {
 
-	GPIO_RETURNtPinOut(GPIO_PORTA, GPIO_Pin2, High_O) ;
+		GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2);
 
-	GPIO_RETURNtPinOut(GPIO_PORTA, GPIO_Pin2, LOW_O) ;
+		SysTick_vDelayms(1000);
 
-	if(GPIO_u8PinRead(GPIO_PORTA, GPIO_Pin2)==LOW_O){
+		GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2);
 
-		GPIO_RETURNtPinOut(GPIO_PORTA, GPIO_Pin2, High_O) ;
+		SysTick_vDelayms(1000);
 
 	}
-	GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2) ;
 
-	GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2) ;
+	/*
 
-	GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2) ;
+	 GPIO_RETURNtPinOut(GPIO_PORTA, GPIO_Pin2, High_O) ;
 
-	GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2) ;
+	 GPIO_RETURNtPinOut(GPIO_PORTA, GPIO_Pin2, LOW_O) ;
 
+	 if(GPIO_u8PinRead(GPIO_PORTA, GPIO_Pin2)==LOW_O){
 
+	 GPIO_RETURNtPinOut(GPIO_PORTA, GPIO_Pin2, High_O) ;
+
+	 }
+	 GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2) ;
+
+	 GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2) ;
+
+	 GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2) ;
+
+	 GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2) ;
+
+	 */
 
 	return 0;
 }
-
-
 

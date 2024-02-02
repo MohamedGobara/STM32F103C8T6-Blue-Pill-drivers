@@ -1,5 +1,6 @@
 "./Drivers/MCAL/GPIO/src/GPIO_program.o"
 "./Drivers/MCAL/RCC/src/RCC_program.o"
+"./Drivers/MCAL/SysTick/src/SysTick_program.o"
 "./Src/main.o"
 "./Src/syscalls.o"
 "./Src/sysmem.o"

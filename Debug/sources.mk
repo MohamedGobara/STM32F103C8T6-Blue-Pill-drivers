@@ -24,6 +24,7 @@ C_DEPS :=
 SUBDIRS := \
 Drivers/MCAL/GPIO/src \
 Drivers/MCAL/RCC/src \
+Drivers/MCAL/SysTick/src \
 Src \
 Startup \
 
