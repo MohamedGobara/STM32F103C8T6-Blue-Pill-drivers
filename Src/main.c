@@ -34,6 +34,8 @@
 #include "GPIO/inc/GPIO_config.h"
 #include "GPIO/inc/GPIO_interface.h"
 
+#include "LCD/inc/LCD_interface.h"
+
 void SwitchAccessToUnPreleivage(void) {
 
 	/***************************
@@ -85,19 +87,58 @@ int main() {
 	GPIO_PinConfig Pina2 = {
 
 	GPIO_PORTA, GPIO_Pin2,
-	GPIO_PinModeOutput_PP, High_O
+	GPIO_PinModeOutput_PP, LOW_O
+
+	};
+	GPIO_PinConfig Pinb12 = { GPIO_PORTB, GPIO_Pin12,
+	GPIO_PinModeOutput_PP, LOW_O
+
+	};
+	GPIO_PinConfig Pinb13 = { GPIO_PORTB, GPIO_Pin13,
+	GPIO_PinModeOutput_PP, LOW_O
+
+	};
+	GPIO_PinConfig Pinb14 = { GPIO_PORTB, GPIO_Pin14,
+	GPIO_PinModeOutput_PP, LOW_O
+
+	};
+	GPIO_PinConfig Pinb15 = { GPIO_PORTB, GPIO_Pin15,
+	GPIO_PinModeOutput_PP, LOW_O
+
+	};
+	GPIO_PinConfig Pina8 = { GPIO_PORTA, GPIO_Pin8,
+	GPIO_PinModeOutput_PP, LOW_O
+
+	};
+	GPIO_PinConfig Pina11 = { GPIO_PORTA, GPIO_Pin11,
+	GPIO_PinModeOutput_PP, LOW_O
 
 	};
 
 	RCC_RETURNtInit();
 
 	RCC_RETURNtPeripheralEn(APB2, PORTA_APB2_peripherals);
+	RCC_RETURNtPeripheralEn(APB2, PORTB_APB2_peripherals);
+
+
 
 	GPIO_RETURNtPinInit(&Pina2);
+	GPIO_RETURNtPinInit(&Pinb12);
+	GPIO_RETURNtPinInit(&Pinb13);
+	GPIO_RETURNtPinInit(&Pinb14);
+	GPIO_RETURNtPinInit(&Pinb15);
+	GPIO_RETURNtPinInit(&Pina8);
+	GPIO_RETURNtPinInit(&Pina11);
 
 	SysTick_vInit();
 
+	LCD_Init();
+
+
+
+
 	while (1) {
+		/*
 
 		GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2);
 
@@ -106,6 +147,13 @@ int main() {
 		GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2);
 
 		SysTick_vDelayms(1000);
+		*/
+
+		LCD_WriteString("Hello Zaharaa )");
+		SysTick_vDelayms(2000);
+		LCD_Clear() ;
+
+
 
 	}
 

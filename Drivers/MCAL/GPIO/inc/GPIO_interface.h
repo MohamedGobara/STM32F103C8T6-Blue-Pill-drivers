@@ -18,6 +18,13 @@
 
 
 
+#include "stdint.h"
+#include "Utils.h"
+#include "STDTypes.h"
+
+#include "GPIO/inc/GPIO_private.h"
+#include "GPIO/inc/GPIO_config.h"
+
 /**
   * @brief  Initializes a GPIO pin based on the given configuration.
   * @param  Localptr_PinConfig: Pointer to a structure containing pin configuration.
