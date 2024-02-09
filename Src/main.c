@@ -149,20 +149,11 @@ int main() {
 		SysTick_vDelayms(1000);
 		*/
 
-		LCD_WriteString("Hello Mohamed :)");
+		LCD_WriteString("Hello Zaharaa )");
 		SysTick_vDelayms(2000);
 		LCD_Clear() ;
-		LCD_WriteString("Keep going man ..");
-		SysTick_vDelayms(2000);
-		LCD_Clear() ;
-		LCD_WriteString("Be strong ..");
-		SysTick_vDelayms(2000);
-		LCD_Clear() ;
-		LCD_WriteString("Day you'll");
-		LCD_GoTo(1, 0) ;
-		LCD_WriteString("be there ..");
-		SysTick_vDelayms(2000);
-		LCD_Clear() ;
+
+
 
 	}
 
