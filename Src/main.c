@@ -22,19 +22,19 @@
 #include "Utils.h"
 #include "STDTypes.h"
 
-#include "SysTick/inc/SysTick_private.h"
-#include "SysTick/inc/SysTick_config.h"
-#include "SysTick/inc/SysTick_interface.h"
 
-#include "RCC/inc/RCC_private.h"
-#include "RCC/inc/RCC_config.h"
 #include "RCC/inc/RCC_interface.h"
 
-#include "GPIO/inc/GPIO_private.h"
-#include "GPIO/inc/GPIO_config.h"
+#include "SysTick/inc/SysTick_interface.h"
+
 #include "GPIO/inc/GPIO_interface.h"
 
 #include "LCD/inc/LCD_interface.h"
+
+
+#include "NVIC/inc/NVIC_interface.h"
+
+
 
 void SwitchAccessToUnPreleivage(void) {
 
@@ -83,6 +83,31 @@ void GenerateInterrupt(void) {
  */
 
 int main() {
+
+	/*uint8_t ll = NVIC_u8GetInterruptState(5)  ;
+
+	printf("%d",ll) ;*/
+
+
+	NVIC_SetPriorityConfig(NVIC_4GROUB_4SUB) ;
+
+	NVIC_SetPriorityConfig(NVIC_16GROUB_0SUB) ;
+
+
+	NVIC_SetPriorityConfig(NVIC_4GROUB_4SUB) ;
+
+
+
+	NVIC_voidSetInterruptPriority(WWDG_LINE, 2, 3) ;
+
+
+	NVIC_voidSetInterruptPriority(RCC_LINE, 3, 3) ;
+
+
+	NVIC_vEnableInterrupt(WWDG_LINE) ;
+
+	//NVIC_vSetPendingFlag(WWDG_LINE) ;
+
 
 	GPIO_PinConfig Pina2 = {
 
@@ -136,7 +161,6 @@ int main() {
 
 
 
-
 	while (1) {
 		/*
 
@@ -149,9 +173,6 @@ int main() {
 		SysTick_vDelayms(1000);
 		*/
 
-		LCD_WriteString("Hello Zaharaa )");
-		SysTick_vDelayms(2000);
-		LCD_Clear() ;
 
 
 
@@ -179,5 +200,11 @@ int main() {
 	 */
 
 	return 0;
+}
+
+void WWDG_IRQHandler(void){
+
+	printf("Hello ") ;
+
 }
 

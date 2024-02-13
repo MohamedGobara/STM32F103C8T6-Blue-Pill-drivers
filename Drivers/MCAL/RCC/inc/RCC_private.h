@@ -212,7 +212,7 @@ typedef struct{
 	volatile uint32_t CSR;
 }RCC_REG;
 
-#define RCC  ((RCC_REG *)RCC_BASE_ADDRESS)
+#define RCC  ((RCC_REG*)RCC_BASE_ADDRESS)
 
 
 

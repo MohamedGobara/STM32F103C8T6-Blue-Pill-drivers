@@ -20,13 +20,9 @@
  */
 
 
-#include "stdint.h"
-#include "Utils.h"
-#include "STDTypes.h"
 
 #include "RCC/inc/RCC_interface.h"
-#include "RCC/inc/RCC_config.h"
-#include "RCC/inc/RCC_private.h"
+
 
 
 

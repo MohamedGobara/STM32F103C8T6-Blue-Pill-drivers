@@ -1,10 +1,25 @@
-#include "stdint.h"
-#include "Utils.h"
-#include "STDTypes.h"
+/*
+ * File:   SysTick.c
+ * Author: Mohamed Hussein
+ * Date:   February 13, 2024 (Date of creation)
+ *
+ * Description:
+ * ------------
+ * This file contains the implementation of functions related to the SysTick timer module
+ * on STM32 microcontrollers. It provides functions to configure the SysTick timer,
+ * generate delays, and handle SysTick interrupts.
+ *
+ * Usage:
+ * ------
+ * 1. Include this file in your project to utilize the SysTick timer functions.
+ * 2. Ensure that the necessary SysTick configuration header file is included.
+ * 3. Use the provided functions to configure the SysTick timer and perform timing operations
+ *    such as generating delays or scheduling periodic tasks in your application.
+ *
+ */
 
-#include "SysTick/inc/SysTick_private.h"
+
 #include "SysTick/inc/SysTick_interface.h"
-#include "SysTick/inc/SysTick_config.h"
 
 void SysTick_vInit(void) {
 
@@ -155,7 +170,7 @@ void SysTick_Handler(void) {
 		/* stop timer */
 		SET_BIT(SysTick->CTRL, 0);
 
-		if (SysTickHandler_ptr != NULL) {
+		if (SysTickHandler_ptr != NULL_FPTR) {
 			SysTickHandler_ptr();
 		}
 
@@ -172,7 +187,7 @@ void SysTick_Handler(void) {
 		}
 		if(i==(overflowInterrupt-1)){
 
-			if (SysTickHandler_ptr != NULL) {
+			if (SysTickHandler_ptr != NULL_FPTR) {
 						SysTickHandler_ptr();
 }
 			i=0 ;
