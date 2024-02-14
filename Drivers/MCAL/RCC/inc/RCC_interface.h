@@ -19,6 +19,13 @@
 #define MCAL_RCC_INC_RCC_INTERFACE_H_
 
 
+#include <stdint.h>
+
+#include "Utils.h"
+#include "STDTypes.h"
+
+#include "RCC/inc/RCC_private.h"
+#include "RCC/inc/RCC_config.h"
 
 /**
   * @brief  Initializes the Reset and Clock Control (RCC) settings.

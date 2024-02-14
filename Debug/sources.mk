@@ -23,7 +23,9 @@ C_DEPS :=
 # Every subdirectory with source files must be described here
 SUBDIRS := \
 Drivers/HAL/LCD/src \
+Drivers/MCAL/EXTI/src \
 Drivers/MCAL/GPIO/src \
+Drivers/MCAL/NVIC/src \
 Drivers/MCAL/RCC/src \
 Drivers/MCAL/SysTick/src \
 Src \

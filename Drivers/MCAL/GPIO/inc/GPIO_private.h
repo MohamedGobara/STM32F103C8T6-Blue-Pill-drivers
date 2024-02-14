@@ -32,8 +32,8 @@
 #define GPIO_PinModeInputAnalog		0b0000
 #define GPIO_PinModeInputFloating	0b0101
 
-#define GPIO_PinModeInput_PU		0b1000
-#define GPIO_PinModeInput_PD		0b1000
+#define GPIO_PinModeInput_PU		0b11000
+#define GPIO_PinModeInput_PD		0b01000
 
 
 

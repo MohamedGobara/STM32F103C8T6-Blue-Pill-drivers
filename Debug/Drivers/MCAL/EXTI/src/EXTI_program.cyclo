@@ -1,0 +1,13 @@
+../Drivers/MCAL/EXTI/src/EXTI_program.c:28:10:EXTI_RETURNtSetInterruptStatus	4
+../Drivers/MCAL/EXTI/src/EXTI_program.c:56:10:EXTI_RETURNtSetEventStatus	4
+../Drivers/MCAL/EXTI/src/EXTI_program.c:82:10:EXTI_RETURNtSetInterruptEdge	5
+../Drivers/MCAL/EXTI/src/EXTI_program.c:112:6:EXTI_vSetSoftwareInterrupt	2
+../Drivers/MCAL/EXTI/src/EXTI_program.c:127:6:EXTI_vClearPendingFlag	2
+../Drivers/MCAL/EXTI/src/EXTI_program.c:145:10:EXTI_RETURNtSetCalbackFunction	2
+../Drivers/MCAL/EXTI/src/EXTI_program.c:173:6:EXTI0_IRQHandler	2
+../Drivers/MCAL/EXTI/src/EXTI_program.c:183:6:EXTI1_IRQHandler	2
+../Drivers/MCAL/EXTI/src/EXTI_program.c:193:6:EXTI2_IRQHandler	2
+../Drivers/MCAL/EXTI/src/EXTI_program.c:202:6:EXTI3_IRQHandler	2
+../Drivers/MCAL/EXTI/src/EXTI_program.c:212:6:EXTI4_IRQHandler	2
+../Drivers/MCAL/EXTI/src/EXTI_program.c:222:6:EXTI5_9_IRQHandler	6
+../Drivers/MCAL/EXTI/src/EXTI_program.c:251:6:EXTI10_15_IRQHandler	8

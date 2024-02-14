@@ -31,6 +31,23 @@ RETURN_t GPIO_RETURNtPinInit(GPIO_PinConfig *Localptr_PinConfig) {
 		MOD_NUM_OF_BITS(LocalGPIO_Ptr->CR[(Localptr_PinConfig->PIN_Name) / 8],
 				((Localptr_PinConfig->PIN_Name) % 8) * 4, 4,
 				Localptr_PinConfig->PIN_MODE);
+
+
+
+if( Localptr_PinConfig->PIN_MODE == GPIO_PinModeInput_PU)
+{
+	SET_BIT(LocalGPIO_Ptr->ODR ,Localptr_PinConfig->PIN_Name );
+
+
+}
+
+
+else if( Localptr_PinConfig->PIN_MODE == GPIO_PinModeInput_PD )
+{
+	CLEAR_BIT(LocalGPIO_Ptr->ODR ,Localptr_PinConfig->PIN_Name );
+
+}
+
 		/* configure set and reset */
 		if (Localptr_PinConfig->PIN_MODE == High_O) {
 
@@ -98,7 +115,7 @@ RETURN_t GPIO_RETURNtPinOut(GPIO_Ports Local_PortName, GPIO_Pins Local_PinName,G
  */
 GPIO_PinStateOut GPIO_u8PinRead(GPIO_Ports Local_PortName,GPIO_Pins Local_PinName){
 
-		return GPIO_ArraysOfPtr[Local_PortName]->IDR == High_O?High_O:LOW_O ;
+		return READ_BIT(GPIO_ArraysOfPtr[Local_PortName]->IDR ,Local_PinName )== High_O?High_O:LOW_O ;
 
 
 }

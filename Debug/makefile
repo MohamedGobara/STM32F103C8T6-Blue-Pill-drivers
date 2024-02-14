@@ -13,7 +13,9 @@ RM := rm -rf
 -include Src/subdir.mk
 -include Drivers/MCAL/SysTick/src/subdir.mk
 -include Drivers/MCAL/RCC/src/subdir.mk
+-include Drivers/MCAL/NVIC/src/subdir.mk
 -include Drivers/MCAL/GPIO/src/subdir.mk
+-include Drivers/MCAL/EXTI/src/subdir.mk
 -include Drivers/HAL/LCD/src/subdir.mk
 -include objects.mk
 
