@@ -30,7 +30,7 @@
 #define GPIO_PinModeAF_OD500M		0b1111
 
 #define GPIO_PinModeInputAnalog		0b0000
-#define GPIO_PinModeInputFloating	0b0101
+#define GPIO_PinModeInputFloating	0b0100
 
 #define GPIO_PinModeInput_PU		0b11000
 #define GPIO_PinModeInput_PD		0b01000

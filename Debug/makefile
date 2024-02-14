@@ -17,6 +17,7 @@ RM := rm -rf
 -include Drivers/MCAL/GPIO/src/subdir.mk
 -include Drivers/MCAL/EXTI/src/subdir.mk
 -include Drivers/HAL/LCD/src/subdir.mk
+-include Drivers/HAL/Keypad/src/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)

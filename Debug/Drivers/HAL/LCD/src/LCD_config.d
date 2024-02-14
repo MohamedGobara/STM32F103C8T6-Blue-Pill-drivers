@@ -1,4 +1,4 @@
-Drivers/HAL/LCD/src/LCD_program.o: ../Drivers/HAL/LCD/src/LCD_program.c \
+Drivers/HAL/LCD/src/LCD_config.o: ../Drivers/HAL/LCD/src/LCD_config.c \
  D:/Projects/ARM\ course/pandaKit/Drivers/MCAL/GPIO/inc/GPIO_interface.h \
  D:/Projects/ARM\ course/pandaKit/Drivers/Utils.h \
  D:/Projects/ARM\ course/pandaKit/Drivers/STDTypes.h \
