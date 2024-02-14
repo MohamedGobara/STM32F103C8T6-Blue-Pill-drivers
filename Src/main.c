@@ -33,7 +33,7 @@
 
 
 #include "NVIC/inc/NVIC_interface.h"
-
+#include "EXTI/inc/EXTI_interface.h"
 
 
 void SwitchAccessToUnPreleivage(void) {
@@ -82,39 +82,43 @@ void GenerateInterrupt(void) {
  *
  */
 
+
+GPIO_PinConfig Pina2 = {
+
+GPIO_PORTA, GPIO_Pin2,
+GPIO_PinModeOutput_PP, LOW_O
+
+};
+
+void TogglePinB0 (void)  {
+
+	LCD_Clear() ;
+	LCD_WriteString("ISR now..") ;
+	SysTick_vDelayms(1000) ;
+	LCD_WriteString("1") ;
+	SysTick_vDelayms(500) ;
+	LCD_WriteString("2") ;
+	SysTick_vDelayms(500) ;
+	LCD_WriteString("3") ;
+	SysTick_vDelayms(500) ;
+	// GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2) ;
+//SysTick_vDelayms(1000) ;
+
+}
+
 int main() {
 
-	/*uint8_t ll = NVIC_u8GetInterruptState(5)  ;
-
-	printf("%d",ll) ;*/
 
 
-	NVIC_SetPriorityConfig(NVIC_4GROUB_4SUB) ;
+	NVIC_SetPriorityConfig(NVIC_0GROUB_16SUB) ;
 
-	NVIC_SetPriorityConfig(NVIC_16GROUB_0SUB) ;
+	NVIC_voidSetInterruptPriority(EXTI0_LINE, 0, 0) ;
 
-
-	NVIC_SetPriorityConfig(NVIC_4GROUB_4SUB) ;
+	NVIC_vEnableInterrupt(EXTI0_LINE) ;
 
 
 
-	NVIC_voidSetInterruptPriority(WWDG_LINE, 2, 3) ;
 
-
-	NVIC_voidSetInterruptPriority(RCC_LINE, 3, 3) ;
-
-
-	NVIC_vEnableInterrupt(WWDG_LINE) ;
-
-	//NVIC_vSetPendingFlag(WWDG_LINE) ;
-
-
-	GPIO_PinConfig Pina2 = {
-
-	GPIO_PORTA, GPIO_Pin2,
-	GPIO_PinModeOutput_PP, LOW_O
-
-	};
 	GPIO_PinConfig Pinb12 = { GPIO_PORTB, GPIO_Pin12,
 	GPIO_PinModeOutput_PP, LOW_O
 
@@ -140,11 +144,23 @@ int main() {
 
 	};
 
+
+	GPIO_PinConfig Pinb0 = { GPIO_PORTB, GPIO_Pin0,
+	GPIO_PinModeInput_PU, High_O
+
+	};
+
+
+
 	RCC_RETURNtInit();
+
+	RCC_RETURNtPeripheralEn(APB2, AFIO_APB2_peripherals);
 
 	RCC_RETURNtPeripheralEn(APB2, PORTA_APB2_peripherals);
 	RCC_RETURNtPeripheralEn(APB2, PORTB_APB2_peripherals);
 
+	/* alternate EXT0 -> PORTB0 */
+	*(uint32_t*)0x40010008=1 ;
 
 
 	GPIO_RETURNtPinInit(&Pina2);
@@ -154,25 +170,29 @@ int main() {
 	GPIO_RETURNtPinInit(&Pinb15);
 	GPIO_RETURNtPinInit(&Pina8);
 	GPIO_RETURNtPinInit(&Pina11);
+	GPIO_RETURNtPinInit(&Pinb0);
+
 
 	SysTick_vInit();
 
 	LCD_Init();
 
+	EXTI_RETURNtSetInterruptEdge(EXTI_LINE0, FALLING_EDGE) ;
+	EXTI_RETURNtSetInterruptStatus(EXTI_LINE0 ,EXTINonMasked) ;
+	EXTI_RETURNtSetCalbackFunction(EXTI_LINE0, TogglePinB0)  ;
 
+uint32_t x  = 0  ;
 
 	while (1) {
-		/*
 
-		GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2);
+		LCD_GoTo(0, 0) ;
+		LCD_WriteNumber(x++) ;
+		LCD_WriteString("               ") ;
+		SysTick_vDelayms(1500) ;
+		if(x==65000) {
 
-		SysTick_vDelayms(1000);
-
-		GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2);
-
-		SysTick_vDelayms(1000);
-		*/
-
+			x= 0 ;
+		}
 
 
 

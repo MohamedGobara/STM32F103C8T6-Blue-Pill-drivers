@@ -1,4 +1,4 @@
-../Drivers/MCAL/GPIO/src/GPIO_program.c:21:10:GPIO_RETURNtPinInit	5
-../Drivers/MCAL/GPIO/src/GPIO_program.c:63:10:GPIO_RETURNtPinOut	5
-../Drivers/MCAL/GPIO/src/GPIO_program.c:99:18:GPIO_u8PinRead	1
-../Drivers/MCAL/GPIO/src/GPIO_program.c:112:10:GPIO_RETURNtPinToggle	4
+../Drivers/MCAL/GPIO/src/GPIO_program.c:21:10:GPIO_RETURNtPinInit	7
+../Drivers/MCAL/GPIO/src/GPIO_program.c:80:10:GPIO_RETURNtPinOut	5
+../Drivers/MCAL/GPIO/src/GPIO_program.c:116:18:GPIO_u8PinRead	1
+../Drivers/MCAL/GPIO/src/GPIO_program.c:129:10:GPIO_RETURNtPinToggle	4
