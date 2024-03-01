@@ -2,6 +2,7 @@
 "./Drivers/HAL/Keypad/src/Keypad_program.o"
 "./Drivers/HAL/LCD/src/LCD_config.o"
 "./Drivers/HAL/LCD/src/LCD_program.o"
+"./Drivers/MCAL/DMA/src/DMA_program.o"
 "./Drivers/MCAL/EXTI/src/EXTI_config.o"
 "./Drivers/MCAL/EXTI/src/EXTI_program.o"
 "./Drivers/MCAL/GPIO/src/GPIO_program.o"

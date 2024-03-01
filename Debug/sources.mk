@@ -24,6 +24,7 @@ C_DEPS :=
 SUBDIRS := \
 Drivers/HAL/Keypad/src \
 Drivers/HAL/LCD/src \
+Drivers/MCAL/DMA/src \
 Drivers/MCAL/EXTI/src \
 Drivers/MCAL/GPIO/src \
 Drivers/MCAL/NVIC/src \

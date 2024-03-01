@@ -16,6 +16,7 @@ RM := rm -rf
 -include Drivers/MCAL/NVIC/src/subdir.mk
 -include Drivers/MCAL/GPIO/src/subdir.mk
 -include Drivers/MCAL/EXTI/src/subdir.mk
+-include Drivers/MCAL/DMA/src/subdir.mk
 -include Drivers/HAL/LCD/src/subdir.mk
 -include Drivers/HAL/Keypad/src/subdir.mk
 -include objects.mk
@@ -40,34 +41,34 @@ $(wildcard ../makefile.init) \
 $(wildcard ../makefile.targets) \
 
 
-BUILD_ARTIFACT_NAME := PandaKit
+BUILD_ARTIFACT_NAME := pandaKit
 BUILD_ARTIFACT_EXTENSION := elf
 BUILD_ARTIFACT_PREFIX :=
 BUILD_ARTIFACT := $(BUILD_ARTIFACT_PREFIX)$(BUILD_ARTIFACT_NAME)$(if $(BUILD_ARTIFACT_EXTENSION),.$(BUILD_ARTIFACT_EXTENSION),)
 
 # Add inputs and outputs from these tool invocations to the build variables 
 EXECUTABLES += \
-PandaKit.elf \
+pandaKit.elf \
 
 MAP_FILES += \
-PandaKit.map \
+pandaKit.map \
 
 SIZE_OUTPUT += \
 default.size.stdout \
 
 OBJDUMP_LIST += \
-PandaKit.list \
+pandaKit.list \
 
 
 # All Target
 all: main-build
 
 # Main-build Target
-main-build: PandaKit.elf secondary-outputs
+main-build: pandaKit.elf secondary-outputs
 
 # Tool invocations
-PandaKit.elf PandaKit.map: $(OBJS) $(USER_OBJS) D:\Projects\ARM\ course\pandaKit\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "PandaKit.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\Projects\ARM course\pandaKit\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="PandaKit.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+pandaKit.elf pandaKit.map: $(OBJS) $(USER_OBJS) D:\Projects\ARM\ course24\pandaKit\STM32F103C8TX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "pandaKit.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"D:\Projects\ARM course24\pandaKit\STM32F103C8TX_FLASH.ld" --specs=nosys.specs -Wl,-Map="pandaKit.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -76,14 +77,14 @@ default.size.stdout: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
 	@echo 'Finished building: $@'
 	@echo ' '
 
-PandaKit.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "PandaKit.list"
+pandaKit.list: $(EXECUTABLES) makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-objdump -h -S $(EXECUTABLES) > "pandaKit.list"
 	@echo 'Finished building: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) PandaKit.elf PandaKit.list PandaKit.map default.size.stdout
+	-$(RM) default.size.stdout pandaKit.elf pandaKit.list pandaKit.map
 	-@echo ' '
 
 secondary-outputs: $(SIZE_OUTPUT) $(OBJDUMP_LIST)
