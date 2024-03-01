@@ -22,19 +22,16 @@
 #include "Utils.h"
 #include "STDTypes.h"
 
-
 #include "RCC/inc/RCC_interface.h"
-
 #include "SysTick/inc/SysTick_interface.h"
-
 #include "GPIO/inc/GPIO_interface.h"
-
-#include "LCD/inc/LCD_interface.h"
-
-
 #include "NVIC/inc/NVIC_interface.h"
 #include "EXTI/inc/EXTI_interface.h"
+#include "DMA/inc/DMA_interface.h"
 
+
+#include "LCD/inc/LCD_interface.h"
+#include "Keypad/inc/Keypad_interface.h"
 
 void SwitchAccessToUnPreleivage(void) {
 
@@ -82,7 +79,6 @@ void GenerateInterrupt(void) {
  *
  */
 
-
 GPIO_PinConfig Pina2 = {
 
 GPIO_PORTA, GPIO_Pin2,
@@ -90,66 +86,77 @@ GPIO_PinModeOutput_PP, LOW_O
 
 };
 
-void TogglePinB0 (void)  {
+void TogglePinB0(void) {
 
-	LCD_Clear() ;
-	LCD_WriteString("ISR now..") ;
-	SysTick_vDelayms(1000) ;
-	LCD_WriteString("1") ;
-	SysTick_vDelayms(500) ;
-	LCD_WriteString("2") ;
-	SysTick_vDelayms(500) ;
-	LCD_WriteString("3") ;
-	SysTick_vDelayms(500) ;
+	LCD_Clear();
+	LCD_WriteString("ISR now..");
+	SysTick_vDelayms(1000);
+	LCD_WriteString("1");
+	SysTick_vDelayms(500);
+	LCD_WriteString("2");
+	SysTick_vDelayms(500);
+	LCD_WriteString("3");
+	SysTick_vDelayms(500);
 	// GPIO_RETURNtPinToggle(GPIO_PORTA, GPIO_Pin2) ;
 //SysTick_vDelayms(1000) ;
 
 }
 
+
+
+DMA_config  prdma1={
+		.TCIE = DMA_TCIE_ENABLE , // 1
+		.HTIE= DMA_HTIE_DISABLE , // 0
+		.DIR = DMA_DIR_PERIPHERAL_TO_MEMORY , // 1
+		.CIRC = DMA_CIRC_DISABLE , // 0
+		.PINC = DMA_PINC_ENABLE  ,//0
+		.MINC= DMA_MINC_ENABLE  ,//0
+		.PSIZE = DMA_PSIZE_16BITS , //2
+		.MSIZE= DMA_MSIZE_16BITS ,//1
+		.PL= DMA_PL_VERY_HIGH ,//3
+		.MEM2MEM_Mode= DMA_MEM2MEM_ENABLE  ,//0
+		.DMA_n = DMA_N1 ,
+		.CHANNEL_n =DMA_CHANNEL0
+
+
+
+}  ;
+
+
+
+void MyDMACallBaCK(void){
+
+
+
+	printf("hello") ;
+}
+
 int main() {
 
+	NVIC_SetPriorityConfig(NVIC_0GROUB_16SUB);
 
+	NVIC_voidSetInterruptPriority(EXTI0_LINE, 0, 0);
 
-	NVIC_SetPriorityConfig(NVIC_0GROUB_16SUB) ;
+	NVIC_vEnableInterrupt(EXTI0_LINE);
 
-	NVIC_voidSetInterruptPriority(EXTI0_LINE, 0, 0) ;
-
-	NVIC_vEnableInterrupt(EXTI0_LINE) ;
-
-
-
-
-	GPIO_PinConfig Pinb12 = { GPIO_PORTB, GPIO_Pin12,
-	GPIO_PinModeOutput_PP, LOW_O
-
-	};
-	GPIO_PinConfig Pinb13 = { GPIO_PORTB, GPIO_Pin13,
-	GPIO_PinModeOutput_PP, LOW_O
-
-	};
-	GPIO_PinConfig Pinb14 = { GPIO_PORTB, GPIO_Pin14,
-	GPIO_PinModeOutput_PP, LOW_O
-
-	};
-	GPIO_PinConfig Pinb15 = { GPIO_PORTB, GPIO_Pin15,
-	GPIO_PinModeOutput_PP, LOW_O
-
-	};
-	GPIO_PinConfig Pina8 = { GPIO_PORTA, GPIO_Pin8,
-	GPIO_PinModeOutput_PP, LOW_O
-
-	};
-	GPIO_PinConfig Pina11 = { GPIO_PORTA, GPIO_Pin11,
-	GPIO_PinModeOutput_PP, LOW_O
-
-	};
-
-
-	GPIO_PinConfig Pinb0 = { GPIO_PORTB, GPIO_Pin0,
-	GPIO_PinModeInput_PU, High_O
-
-	};
-
+	/*
+	 * DMA1_Channel1_LINE,
+	   DMA1_Channel2_LINE,
+	DMA1_Channel3_LINE,
+	DMA1_Channel4_LINE,
+	DMA1_Channel5_LINE,
+	DMA1_Channel6_LINE,
+	DMA1_Channel7_LINE,
+	 *
+	 *
+	 */
+	NVIC_vEnableInterrupt(DMA1_Channel1_LINE);
+	NVIC_vEnableInterrupt(DMA1_Channel2_LINE);
+	NVIC_vEnableInterrupt(DMA1_Channel3_LINE);
+	NVIC_vEnableInterrupt(DMA1_Channel4_LINE);
+	NVIC_vEnableInterrupt(DMA1_Channel5_LINE);
+	NVIC_vEnableInterrupt(DMA1_Channel6_LINE);
+	NVIC_vEnableInterrupt(DMA1_Channel7_LINE);
 
 
 	RCC_RETURNtInit();
@@ -159,42 +166,69 @@ int main() {
 	RCC_RETURNtPeripheralEn(APB2, PORTA_APB2_peripherals);
 	RCC_RETURNtPeripheralEn(APB2, PORTB_APB2_peripherals);
 
+	RCC_RETURNtPeripheralEn(AHB, DMA1_AHB_peripherals);
+	RCC_RETURNtPeripheralEn(AHB, DMA2_AHB_peripherals);
+
+
 	/* alternate EXT0 -> PORTB0 */
-	*(uint32_t*)0x40010008=1 ;
+	//*(uint32_t*) 0x40010008 = 1;
 
 
 	GPIO_RETURNtPinInit(&Pina2);
-	GPIO_RETURNtPinInit(&Pinb12);
-	GPIO_RETURNtPinInit(&Pinb13);
-	GPIO_RETURNtPinInit(&Pinb14);
-	GPIO_RETURNtPinInit(&Pinb15);
-	GPIO_RETURNtPinInit(&Pina8);
-	GPIO_RETURNtPinInit(&Pina11);
-	GPIO_RETURNtPinInit(&Pinb0);
 
 
+	//GPIO_RETURNtPinInit(&Pinb0);
+
+
+	/*GPIO_PinConfig Pinb0 = { GPIO_PORTB, GPIO_Pin0,
+		GPIO_PinModeInput_PU, High_O
+
+		};*/
 	SysTick_vInit();
 
+
+	DMA_RETURNtInit(&prdma1) ;
+
+	//uint32_t value   = 0xFFFFFFFF ;
+
+
+	uint16_t srcArray[10]  = {10,11,12,13,14,15,16,17,18,19} ;
+	uint16_t desArray[10]  = {0} ;
+
+	DMA_RETURNtRegisterCallBack(&prdma1, &MyDMACallBaCK) ;
+	DMA_RETURNtstart(&prdma1, (uint32_t)&srcArray, (uint32_t)&desArray,10) ;
+
+
 	LCD_Init();
+	KeyPad_vInit();
 
-	EXTI_RETURNtSetInterruptEdge(EXTI_LINE0, FALLING_EDGE) ;
-	EXTI_RETURNtSetInterruptStatus(EXTI_LINE0 ,EXTINonMasked) ;
-	EXTI_RETURNtSetCalbackFunction(EXTI_LINE0, TogglePinB0)  ;
+	LCD_WriteChar(GPIOA->ODR) ;
 
-uint32_t x  = 0  ;
-
+	/*EXTI_RETURNtSetInterruptEdge(EXTI_LINE0, FALLING_EDGE) ;
+	 EXTI_RETURNtSetInterruptStatus(EXTI_LINE0 ,EXTINonMasked) ;
+	 EXTI_RETURNtSetCalbackFunction(EXTI_LINE0, TogglePinB0)  ;*/
+	uint8_t result = NO_KEY;
 	while (1) {
 
-		LCD_GoTo(0, 0) ;
-		LCD_WriteNumber(x++) ;
-		LCD_WriteString("               ") ;
-		SysTick_vDelayms(1500) ;
-		if(x==65000) {
+		/*result = KeyPad_u8GetKey();
 
-			x= 0 ;
-		}
+		if (result != NO_KEY) {
 
+			LCD_WriteChar(result);
 
+		}*/
+
+		/*
+		 LCD_GoTo(0, 0) ;
+		 LCD_WriteNumber(x++) ;
+		 LCD_WriteString("               ") ;
+		 SysTick_vDelayms(1500) ;
+		 if(x==65000) {
+
+		 x= 0 ;
+		 }
+
+		 */
 
 	}
 
@@ -222,9 +256,9 @@ uint32_t x  = 0  ;
 	return 0;
 }
 
-void WWDG_IRQHandler(void){
+void WWDG_IRQHandler(void) {
 
-	printf("Hello ") ;
+	printf("Hello ");
 
 }
 

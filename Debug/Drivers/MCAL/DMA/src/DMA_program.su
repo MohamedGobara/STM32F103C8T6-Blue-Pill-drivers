@@ -1,0 +1,16 @@
+../Drivers/MCAL/DMA/src/DMA_program.c:10:13:DMA_RETURNtSetConfig	24	static
+../Drivers/MCAL/DMA/src/DMA_program.c:87:10:DMA_RETURNtInit	24	static
+../Drivers/MCAL/DMA/src/DMA_program.c:108:10:DMA_RETURNtstart	32	static
+../Drivers/MCAL/DMA/src/DMA_program.c:133:6:DMA_RETURNtPollForTransfer	16	static
+../Drivers/MCAL/DMA/src/DMA_program.c:170:10:DMA_RETURNtRegisterCallBack	24	static
+../Drivers/MCAL/DMA/src/DMA_program.c:200:6:DMA1_Channel1_IRQHandler	8	static
+../Drivers/MCAL/DMA/src/DMA_program.c:211:6:DMA1_Channel2_IRQHandler	8	static
+../Drivers/MCAL/DMA/src/DMA_program.c:223:6:DMA1_Channel3_IRQHandler	8	static
+../Drivers/MCAL/DMA/src/DMA_program.c:235:6:DMA1_Channel4_IRQHandler	8	static
+../Drivers/MCAL/DMA/src/DMA_program.c:244:6:DMA1_Channel5_IRQHandler	8	static
+../Drivers/MCAL/DMA/src/DMA_program.c:257:6:DMA1_Channel6_IRQHandler	8	static
+../Drivers/MCAL/DMA/src/DMA_program.c:268:6:DMA1_Channel7_IRQHandler	8	static
+../Drivers/MCAL/DMA/src/DMA_program.c:285:6:DMA2_Channel1_IRQHandler	8	static
+../Drivers/MCAL/DMA/src/DMA_program.c:298:6:DMA2_Channel2_IRQHandler	8	static
+../Drivers/MCAL/DMA/src/DMA_program.c:312:6:DMA2_Channel3_IRQHandler	8	static
+../Drivers/MCAL/DMA/src/DMA_program.c:325:6:DMA2_Channel4_5_IRQHandler	4	static

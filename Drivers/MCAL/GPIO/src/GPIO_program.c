@@ -49,13 +49,13 @@ else if( Localptr_PinConfig->PIN_MODE == GPIO_PinModeInput_PD )
 }
 
 		/* configure set and reset */
-		if (Localptr_PinConfig->PIN_MODE == High_O) {
+		if (Localptr_PinConfig->PIN_DefaultOut == High_O) {
 
 			SET_BIT(LocalGPIO_Ptr->BSRR , Localptr_PinConfig->PIN_Name);
 
-		} else if (Localptr_PinConfig->PIN_MODE == LOW_O) {
+		} else if (Localptr_PinConfig->PIN_DefaultOut == LOW_O) {
 
-			SET_BIT(LocalGPIO_Ptr->BSRR , ((Localptr_PinConfig->PIN_Name)+GPIO_PortsOutOfRange) );
+			SET_BIT(LocalGPIO_Ptr->BSRR , ((Localptr_PinConfig->PIN_Name)+GPIO_PinsOutOfRange) );
 
 		} else {
 			LocalRetState = ERROR_ret;

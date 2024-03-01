@@ -1,3 +1,4 @@
+#include "GPIO/inc/GPIO_interface.h"
 #include "LCD/inc/LCD_interface.h"
 
 /* check mode is 4 bit or 8 bit */
@@ -101,7 +102,22 @@ static void WriteData(uint8_t data) {
 
 }
 
+extern GPIO_PinConfig D7_PIN;
+extern GPIO_PinConfig D6_PIN;
+extern GPIO_PinConfig D5_PIN;
+extern GPIO_PinConfig D4_PIN;
+extern GPIO_PinConfig EN_PIN;
+extern GPIO_PinConfig RS_PIN;
+
 void LCD_Init(void) {
+
+	GPIO_RETURNtPinInit(&D7_PIN);
+	GPIO_RETURNtPinInit(&D6_PIN);
+	GPIO_RETURNtPinInit(&D5_PIN);
+	GPIO_RETURNtPinInit(&D4_PIN);
+
+	GPIO_RETURNtPinInit(&EN_PIN);
+	GPIO_RETURNtPinInit(&RS_PIN);
 
 	SysTick_vDelayms(50);
 	WriteInsterction(0x02);
